@@ -1,5 +1,5 @@
 const config = {
-    gtmId: 'GTM-XXXXX'
+    gtmId: 'GTM-KGCH25NB'
 };
 
 export default config;
