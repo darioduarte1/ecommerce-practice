@@ -112,12 +112,16 @@ function addTocart(index) {
 
     dataLayer.push({
         'event': 'add_to_cart',
+        'currency': 'EUR',  // Moneda en formato ISO 4217
+        'value': phones[index].price * phones[index].quantity,  // Valor total del evento
         'ecommerce': {
             'items': [{
                 'item_id': phones[index].model,
                 'item_name': `${phones[index].brand} ${phones[index].model}`,
                 'price': phones[index].price,
-                'quantity': phones[index].quantity
+                'quantity': phones[index].quantity,
+                'item_brand': phones[index].brand,  // Se agrega la marca
+                'item_category': 'Electronics'  // Se define una categoría base
             }]
         }
     });
