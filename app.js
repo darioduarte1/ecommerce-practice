@@ -135,19 +135,19 @@ function checkCart() {
 
     // Enviar evento begin_checkout a dataLayer con la estructura de ecommerce
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
+    dataLayer.push({
         'event': 'begin_checkout',
-        'ecommerce': {  // 🔥 Se agregó "ecommerce" para que GA4 lo reconozca correctamente
-            'currency': 'EUR',
-            'value': arr.reduce((acc, item) => acc + (item.price * item.quantity), 0),
+        'currency': 'EUR',  // Moneda en formato ISO 4217
+        'value': arr.reduce((acc, item) => acc + (item.price * item.quantity), 0),  // Valor total del carrito
+        'ecommerce': {
             'items': arr.map((item, index) => ({
-                'item_id': item.model,
-                'item_name': `${item.brand} ${item.model}`,
-                'item_brand': item.brand,
-                'item_category': 'Electronics',
-                'price': item.price,
-                'quantity': item.quantity,
-                'index': index
+                'item_id': item.model,  // ID del producto
+                'item_name': `${item.brand} ${item.model}`,  // Nombre completo del producto
+                'price': item.price,  // Precio unitario
+                'quantity': item.quantity,  // Cantidad agregada al carrito
+                'item_brand': item.brand,  // Marca del producto
+                'item_category': 'Electronics',  // Categoría base
+                'index': index  // Posición del producto en el carrito
             }))
         }
     });
