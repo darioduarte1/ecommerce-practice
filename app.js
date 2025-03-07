@@ -133,24 +133,26 @@ function checkCart() {
         return;
     }
 
-    // Enviar evento begin_checkout a dataLayer
+    // Enviar evento begin_checkout a dataLayer con la estructura de ecommerce
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
         'event': 'begin_checkout',
-        'currency': 'EUR',
-        'value': arr.reduce((acc, item) => acc + (item.price * item.quantity), 0),
-        'items': arr.map((item, index) => ({
-            'item_id': item.model,
-            'item_name': `${item.brand} ${item.model}`,
-            'item_brand': item.brand,
-            'item_category': 'Electronics',
-            'price': item.price,
-            'quantity': item.quantity,
-            'index': index
-        }))
+        'ecommerce': {  // 🔥 Se agregó "ecommerce" para que GA4 lo reconozca correctamente
+            'currency': 'EUR',
+            'value': arr.reduce((acc, item) => acc + (item.price * item.quantity), 0),
+            'items': arr.map((item, index) => ({
+                'item_id': item.model,
+                'item_name': `${item.brand} ${item.model}`,
+                'item_brand': item.brand,
+                'item_category': 'Electronics',
+                'price': item.price,
+                'quantity': item.quantity,
+                'index': index
+            }))
+        }
     });
 
-    console.log("Evento begin_checkout enviado:", window.dataLayer);
+    console.log("Evento begin_checkout enviado a GA4:", window.dataLayer);
 
     // Mantiene el flujo original
     localStorage.setItem('CartItem', JSON.stringify(arr));
